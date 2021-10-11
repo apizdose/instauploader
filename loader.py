@@ -17,11 +17,11 @@ from os import path
 
 loginform=input('Login:  ') or ""
 passwordform=input('Password:  ') or ""
-
-
+#########################################
+####Here your logins and passwords.#####
+########################################
 logins={'login1':'password1', 'login2':'password2','login...':'password...'}
 loginbase = [(k, v) for k, v in logins.items()]
-
 
 
 spam = False
@@ -114,7 +114,7 @@ def taggen():
 {text}'''
     return capt
 
-#Открываем сессию и получаем куки
+#Open session
 def sessionData():
 
     #link = 'https://www.instagram.com/accounts/login/'
@@ -123,14 +123,14 @@ def sessionData():
 
     localtime = int(datetime.now().timestamp())
 
-#Логин и пароль от инсты
+#Login and password.
     payload = {
         'username': loginform,
         'enc_password': f'#PWD_INSTAGRAM_BROWSER:0:{localtime}:{passwordform}',
         'queryParams': {},
         'optIntoOneTap': 'false'
     }
-#Отправляем запрос для получения куки и заголовков.
+#Cookie and headers req.
     with requests.Session() as s:
         r = s.get(link, headers={
             "User-Agent": "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Mobile Safari/537.36",
@@ -308,7 +308,7 @@ def logout():
         r = s.post('https://www.instagram.com/accounts/logout/ajax/', data=body, headers=headers)
         print(r.status_code)
         #print(r.text)
-        print('\n\nLogauted')
+        print('\n\nLogouted')
         
         
 def runpost():
@@ -325,7 +325,7 @@ def runpost():
             countdata=0
             
         time.sleep(1)
-        mkfiles = glob.glob("album/*.jpg")#Собираем файлы.
+        mkfiles = glob.glob("album/*.jpg")#Collecting photos.
         try:
             numb=random.randint(0,(len(mkfiles)-1))
             #print(numb)
@@ -347,6 +347,6 @@ def runpost():
             print("SLEEPING from "+str(datetime.now())+" to "+str(tsleep))
             time.sleep(sltime)
         else:
-            print ("Закончились")
+            print ("End.")
             break
 runpost()
