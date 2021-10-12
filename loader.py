@@ -12,8 +12,8 @@ import glob
 import shutil
 from os import path
 
-
-
+if not os.path.isdir('album'):
+    os.mkdir('album')
 
 loginform=input('Login:  ') or ""
 passwordform=input('Password:  ') or ""
