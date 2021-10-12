@@ -41,85 +41,18 @@ printtags='''
 '''
 
 def taggen():
-    tags = ["#money",
-    "#datenight",
-    "#cash",
-    "#success",
-    "#bucks",
-    "#leadership",
-    "#business",
-    "#adultmemes",
-    "#adultsociety",
-    "#adults",
-    "#bigbootygirls",
-    "#leggings",
-    "#curvy",
-    "#adultgram",
-    "#latenight",
-    "#tiny",
-    "#gfe",
-    "#menstyle",
-    "#menwithstyle",
-    "#matchmaking",
-    "#carporn",
-    "#over18",
-    "#sexylingerie",
-    "#sexygirsls",
-    "#sexyactress",
-    "#onlyfans",
-    "#babes",
-    "#stockings",
-    "#sexybabes",
-    "#melons",
-    "#sexeducation",
-    "#sexed",
-    "#hottestgirls",
-    "#wet",
-    "#sexyphoto",
-    "#hotgirl",
-    "#peachy",
-    "#sexyheels",
-    "#bikini",
-    "#hot",
-    "#beautiful",
-    "#beauty",
-    "#girl",
-    "#lingerie",
-    "#girls",
-    "#pretty",
-    "#bhfyp",
-    "#portrait",
-    "#hottestmodels",
-    "#advertise",
-    "#moodoftheday",
-    "#moody",
-    "#hairy",
-    "#naturalgirl",
-    "#naturalwoman",
-    "#naturalbody",
-    "#lingerielove",
-    "#photography",
-    "#portraitgasm",
-    "#portraitmood",
-    "#bööbss",
-    "#boobsy",
-    "#butt",
-    "#naughty",
-    "#noclothing",
-    "#bra",
-    "#badass",
-    "#titsfordays"	    
-               ]
+    with open('tags.txt','r') as file:
+        tags = file.read().splitlines()
 
-    random.shuffle(tags)
-    cnttag=random.randint(10,25)
-    text = ' '.join(tags[:cnttag])
+        random.shuffle(tags)
+        cnttag=random.randint(10,25)
+        text = ' '.join(tags[:cnttag])
 
-    capt=f'''.
+        capt=f'''.
 .
-
+.
 {text}'''
-    return capt
+        return capt
 
 #Open session
 def sessionData():
@@ -263,7 +196,7 @@ def photoload(imagefile):
 
 
         'source_type': 'library',
-        'caption': f'{comm}{printtags}',
+        'caption': f'{comm}\n{printtags}',
         'upcoming_event':'' ,
         'upload_id': microtime,
         'geotag_enabled': 'true',
