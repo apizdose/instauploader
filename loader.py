@@ -54,6 +54,15 @@ def taggen():
 {text}'''
         return capt
 
+def smilegen():
+    with open('smiles.txt','r', encoding='utf-8') as file:
+        smiles = file.read().splitlines()
+
+        random.shuffle(smiles)
+
+        smiletext = ''.join(smiles)
+        return smiletext
+    
 #Open session
 def sessionData():
 
@@ -181,16 +190,8 @@ def photoload(imagefile):
             }
 
 
-
         printtags=taggen()
-
-
-        smiles=['💋','❤','💕','😘']
-
-        smile = smiles[random.randint(0,len(smiles)-1)]
-        smile2 = smiles[random.randint(0,len(smiles)-1)]
-        smile3 = smiles[random.randint(0,len(smiles)-1)]
-        comm = smile+smile+smile3+smile2
+        comm = smilegen()
         
         sbody = {
 
