@@ -29,9 +29,9 @@ if os.path.isfile('login.txt'):
         for i in lgns:
             slic=i.split(":")
             logins[slic[0]]=slic[1]
-            print(logins)
+            
     loginbase = [(k, v) for k, v in logins.items()]
-
+    print(logins)
 
 spam = False
 XInstagramAJAX = csrftoken = ds_user_id = sessionid = ig_did = mid = ig_nrcb = False
@@ -164,7 +164,8 @@ def photoload(imagefile):
         r = s.post(f'https://www.instagram.com/rupload_igphoto/fb_uploader_{microtime}', data=open(imagefile, "rb"), headers=headers)
         print('\n\n'+str(r.status_code))
         print(r.text)
-        
+        print('\nWaiting a few seconds...')
+        time.sleep(random.randint(5,15))
 
         sheaders={
         'Host': 'i.instagram.com',
