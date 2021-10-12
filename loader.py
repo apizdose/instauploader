@@ -297,7 +297,7 @@ def runpost():
         if bool(mkfiles):
             file = mkfiles[int(numb)]
             sessionData()
-            print('Logined >>> '+loginform+' <<< Waiting 5-10min to post.')
+            print('Logged in >>> '+loginform+' <<< Waiting 5-10min to post.')
             time.sleep(random.randint(300,600))
             photoload(file)
             print('Post from '+loginform+' with '+file+' created.\n\nWaiting to logoff 5-10min.')
