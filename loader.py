@@ -53,7 +53,7 @@ frfrom=int(frfrom)
 frto=int(frto)
 
 spam = False
-XInstagramAJAX = csrftoken = ds_user_id = sessionid = ig_did = mid = ig_nrcb = False
+XInstagramAJAX = csrftoken = ds_user_id = sessionid = ig_did = mid = ig_nrcb = shbid = shbts = rur = False
 XIGAppID = input('Paste XIGAppID or press enter to default: ') or "1217981644879628"
 print('IGAppid for your version is: '+XIGAppID)
 
@@ -109,7 +109,7 @@ def sessionData():
         csrf = re.findall(r"csrf_token\":\"(.*?)\"",r.text)[0]
         globals()['XInstagramAJAX'] = re.findall(r"rollout_hash\":\"(.*?)\"",r.text)[0]
         coo = dict(r.cookies)
-        print('Cookies created.')
+        
         
         
 
@@ -138,6 +138,42 @@ def sessionData():
             for i in res:globals()[i[0]] = i[1]
             print(r.status_code)
             print('\n\nConnected.')
+            getcoo()
+
+def getcoo():
+    headers={
+        'Host': 'www.instagram.com',
+        'Connection': 'keep-alive',
+        'sec-ch-ua': '"Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"',
+        'sec-ch-ua-mobile': '?1',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Upgrade-Insecure-Requests': '1',
+        'Accept': '*/*',
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Mobile Safari/537.36',
+        'X-ASBD-ID': '198387',
+        'sec-ch-ua-platform': '"Android"',
+        'Origin': 'https://www.instagram.com',
+        'Sec-Fetch-Site': 'same-site',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-User': '?1',
+        'Referer': 'https://www.instagram.com/',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'en-US,en;q=0.9,ru;q=0.8',
+        'Cookie': f'ig_did={ig_did}; csrftoken={csrftoken}; ds_user_id={ds_user_id}; sessionid={sessionid}',
+            }
+
+   
+
+    with requests.Session() as s:
+        r = s.get('https://www.instagram.com/accounts/onetap/?next=%2F', headers=headers)
+        print('Cookies catched.')
+        print(r.status_code)
+        print('GET COOK')
+        cookies=dict(r.cookies)
+        res = [(k, v) for k, v in cookies.items()]
+        for i in res:globals()[i[0]] = i[1]
+                
 
 def photoload(imagefile):
     with requests.Session() as s:
@@ -177,7 +213,7 @@ def photoload(imagefile):
                             'Referer': 'https://www.instagram.com/',
                             'Accept-Encoding': 'gzip, deflate, br',
                             'Accept-Language': 'en-US,en;q=0.9,ru;q=0.8',
-                            "Cookie": f'mid={mid}; ig_did={ig_did}; csrftoken={csrftoken}; ds_user_id={ds_user_id}; sessionid={sessionid}',
+                            "Cookie": f'mid={mid}; ig_did={ig_did}; shbid={shbid}; shbts={shbts}; rur={rur}; csrftoken={csrftoken}; ds_user_id={ds_user_id}; sessionid={sessionid}',
                         }
 
         r = s.post(f'https://www.instagram.com/rupload_igphoto/fb_uploader_{microtime}', data=open(imagefile, "rb"), headers=headers)
@@ -185,7 +221,10 @@ def photoload(imagefile):
         print(r.text)
         print('\nWaiting a few seconds...')
         time.sleep(random.randint(5,25))
-
+        cookies=dict(r.cookies)
+        global rur
+        rur = cookies['rur']
+        
         sheaders={
         'Host': 'i.instagram.com',
         'Connection': 'keep-alive',
@@ -208,7 +247,7 @@ def photoload(imagefile):
         'Referer': 'https://www.instagram.com/',
         'Accept-Encoding': 'gzip, deflate, br',
         'Accept-Language': 'en-US,en;q=0.9,ru;q=0.8',
-        'Cookie': f'mid={mid}; ig_did={ig_did}; fbm_124024574287414=base_domain=.instagram.com; csrftoken={csrftoken}; ds_user_id={ds_user_id}; sessionid={sessionid}',
+        'Cookie': f'mid={mid}; ig_did={ig_did}; fbm_124024574287414=base_domain=.instagram.com; shbid={shbid}; shbts={shbts}; csrftoken={csrftoken}; ds_user_id={ds_user_id}; sessionid={sessionid}; rur={rur}',
             }
 
 
@@ -234,7 +273,9 @@ def photoload(imagefile):
         r = s.post('https://www.instagram.com/create/configure/', data=sbody, headers=sheaders)
 
         print('\n\n'+str(r.status_code))
-        #print(sbody)
+        print(sbody)
+        cookies=dict(r.cookies)
+        print(cookies)
 
 def logout():
     headers={
