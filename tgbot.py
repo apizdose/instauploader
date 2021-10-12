@@ -23,7 +23,7 @@ def tokenAIget():
 
 TOKENTG = tokenTGget().rstrip()
 bot = telebot.TeleBot(TOKENTG)
-
+print('Send me a link from instagram. And i will put image to album.')
 
 @bot.message_handler(content_types=['text'])
 @bot.edited_message_handler(content_types=['text'])
