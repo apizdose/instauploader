@@ -20,7 +20,13 @@ passwordform=input('Password:  ') or ""
 #########################################
 ####Here your logins and passwords.#####
 ########################################
-logins={'login1':'password1', 'login2':'password2','login...':'password...'}
+logins={}
+with open('login.txt','r') as file:
+    lgns = file.read().splitlines()
+    for i in lgns:
+        slic=i.split(":")
+        logins[slic[0]]=slic[1]
+        print(logins)
 loginbase = [(k, v) for k, v in logins.items()]
 
 
