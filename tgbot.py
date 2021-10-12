@@ -42,9 +42,9 @@ def send_echo(message):
                 out = open(f'{ospath}{microtime}_{random.randint(0,99)}.jpg', 'wb')
                 out.write(r.content)
                 out.close()
-        except:bot.send_message(message.chat.id, "Что-то не так с ссылкой.")
+        except:bot.send_message(message.chat.id, "Something wrong with link. Try again")
     else:
-        bot.send_message(message.chat.id, 'Кинь мне ссылку на пост в инсте, я ее переделаю.')
+        bot.send_message(message.chat.id, 'Send me a link from instagram.')
     
 
 print('Running')
