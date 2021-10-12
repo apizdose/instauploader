@@ -20,6 +20,9 @@ Also you must set time range to define frequency of your posting. From and to in
 
 Note! Frequency is per post, NOT per account.
 Note! Fill up the directory "album" before starting.
+
+---You can use telegram bot "tgbot.py" to top up album.---
+__________________________________________________________________________
 ''')
 
 if not os.path.isdir('album'):
