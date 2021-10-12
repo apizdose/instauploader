@@ -6,4 +6,4 @@ You need to put your photos to dir named 'ablum' and addin credentials to login.
 
 Also u can add telegram token to put images in 'album' via telegram bot.
 
-In tags txt you can add hashtags, which will be added to the posted message. And in text.txt the message itself.
+In tags txt you can add hashtags, which will be added to the posted message. And in smiles.txt the message itself or list of emoji.
