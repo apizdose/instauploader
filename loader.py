@@ -20,14 +20,15 @@ passwordform=input('Password:  ') or ""
 #########################################
 ####Here your logins and passwords.#####
 ########################################
-logins={}
-with open('login.txt','r') as file:
-    lgns = file.read().splitlines()
-    for i in lgns:
-        slic=i.split(":")
-        logins[slic[0]]=slic[1]
-        print(logins)
-loginbase = [(k, v) for k, v in logins.items()]
+if os.path.isfile('login.txt'):
+    logins={}
+    with open('login.txt','r') as file:
+        lgns = file.read().splitlines()
+        for i in lgns:
+            slic=i.split(":")
+            logins[slic[0]]=slic[1]
+            print(logins)
+    loginbase = [(k, v) for k, v in logins.items()]
 
 
 spam = False
@@ -320,15 +321,15 @@ def logout():
 def runpost():
     countdata=0
     while True:
+        if os.path.isfile('login.txt'):
+            global loginform
+            loginform=loginbase[countdata][0]
+            global passwordform
+            passwordform=loginbase[countdata][1]
+            countdata+=1
         
-        global loginform
-        loginform=loginbase[countdata][0]
-        global passwordform
-        passwordform=loginbase[countdata][1]
-        countdata+=1
-        
-        if countdata==len(loginbase):
-            countdata=0
+            if countdata==len(loginbase):
+                countdata=0
             
         time.sleep(1)
         mkfiles = glob.glob("album/*.jpg")#Collecting photos.
@@ -342,7 +343,7 @@ def runpost():
             sessionData()
             
             photoload(file)
-            print('Post with '+file+' created.\n\nWaiting to logoff 5-10min.')
+            print('Post from '+loginform+' with '+file+' created.\n\nWaiting to logoff 5-10min.')
             time.sleep(random.randint(300,600))
             logout()
             destination_path = "Trash"
