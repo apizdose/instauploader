@@ -242,7 +242,7 @@ def logout():
 
     body = {
         'one_tap_app_login': '0',
-        'user_id': '1548132629',          
+        'user_id': ds_user_id,          
             }
 
     with requests.Session() as s:
