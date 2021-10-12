@@ -12,6 +12,12 @@ import glob
 import shutil
 from os import path
 
+print('''Hello. I am a instagram bot, who uploading random photo across your accounts list round robin.
+Now im create two folders. Plz put the photos in "album" folder.
+And if you fill the form with logins press "Enter" on login and password question.
+Also you must set time range to define frequency of your posting. From and to in seconds (in default it is 20000 to 30000 equivalent ~5,5 to 8 hours).
+''')
+
 if not os.path.isdir('album'):
     os.mkdir('album')
 if not os.path.isdir('trash'):
@@ -32,6 +38,11 @@ if os.path.isfile('login.txt'):
             
     loginbase = [(k, v) for k, v in logins.items()]
     print(logins)
+
+frfrom=input('Frequency from (seconds):  ') or "20000"
+frto=input('Frequency to (seconds):  ') or "30000"
+frfrom=int(frfrom)
+frto=int(frto)
 
 spam = False
 XInstagramAJAX = csrftoken = ds_user_id = sessionid = ig_did = mid = ig_nrcb = False
@@ -287,7 +298,9 @@ def runpost():
             destination_path = "Trash"
             new_location = shutil.move(file, destination_path)
             #print(bool(mkfiles))
-            sltime=random.randint(10000,15000)
+            global frfrom
+            global frto
+            sltime=random.randint(frfrom,frto)
             tsleep =  datetime.now() + timedelta(seconds=sltime)
             print("SLEEPING from "+str(datetime.now())+" to "+str(tsleep))
             time.sleep(sltime)
