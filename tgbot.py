@@ -47,5 +47,5 @@ def send_echo(message):
         bot.send_message(message.chat.id, 'Send me a link from instagram.')
     
 
-print('Running')
+print('\n------------------ Running...------------------')
 bot.polling( none_stop = True)
