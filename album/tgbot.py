@@ -3,10 +3,14 @@ from telebot.types import Message
 import random
 import re
 import requests
-
+import os
 from datetime import datetime
 import time
 
+ospath=''
+if os.name == 'nt':
+    ospath='\\album\\'
+else: ospath='/album/'     
 def tokenTGget():
     with open('tokentg.txt','r') as tokenfile:
         return tokenfile.read()
@@ -35,7 +39,7 @@ def send_echo(message):
     with requests.Session() as s:
         r=s.get(url,allow_redirects=True,headers={"User-Agent": "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Mobile Safari/537.36"})
         time.sleep(2)
-        out = open(f'{microtime}_{random.randint(0,9)}.jpg', 'wb')
+        out = open(f'{ospath}{microtime}_{random.randint(0,9)}.jpg', 'wb')
         out.write(r.content)
         out.close()
 
