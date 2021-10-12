@@ -165,7 +165,7 @@ def photoload(imagefile):
         print('\n\n'+str(r.status_code))
         print(r.text)
         print('\nWaiting a few seconds...')
-        time.sleep(random.randint(5,15))
+        time.sleep(random.randint(5,25))
 
         sheaders={
         'Host': 'i.instagram.com',
@@ -278,7 +278,8 @@ def runpost():
         if bool(mkfiles):
             file = mkfiles[int(numb)]
             sessionData()
-            
+            print('Logined '+loginform+' Waiting to logoff 5-10min to post.')
+            time.sleep(random.randint(300,600))
             photoload(file)
             print('Post from '+loginform+' with '+file+' created.\n\nWaiting to logoff 5-10min.')
             time.sleep(random.randint(300,600))
