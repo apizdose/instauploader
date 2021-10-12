@@ -14,6 +14,8 @@ from os import path
 
 if not os.path.isdir('album'):
     os.mkdir('album')
+if not os.path.isdir('trash'):
+    os.mkdir('trash')    
 
 loginform=input('Login:  ') or ""
 passwordform=input('Password:  ') or ""
