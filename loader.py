@@ -221,8 +221,7 @@ def photoload(imagefile):
         print(r.text)
         print('\nWaiting a few seconds...')
         time.sleep(random.randint(5,25))
-        cookies=dict(r.cookies)
-        newrur = cookies['rur']
+        
         
         sheaders={
         'Host': 'i.instagram.com',
@@ -246,7 +245,7 @@ def photoload(imagefile):
         'Referer': 'https://www.instagram.com/',
         'Accept-Encoding': 'gzip, deflate, br',
         'Accept-Language': 'en-US,en;q=0.9,ru;q=0.8',
-        'Cookie': f'mid={mid}; ig_did={ig_did}; fbm_124024574287414=base_domain=.instagram.com; shbid={shbid}; shbts={shbts}; csrftoken={csrftoken}; ds_user_id={ds_user_id}; sessionid={sessionid}; rur={newrur}',
+        'Cookie': f'mid={mid}; ig_did={ig_did}; fbm_124024574287414=base_domain=.instagram.com; shbid={shbid}; shbts={shbts}; csrftoken={csrftoken}; ds_user_id={ds_user_id}; sessionid={sessionid}; rur={rur}',
             }
 
 
