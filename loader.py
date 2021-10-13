@@ -273,7 +273,7 @@ def photoload(imagefile):
         print('\n\n'+str(r.status_code))
         print(sbody)
         cookies=dict(r.cookies)
-        print(cookies)
+        
 
 def logout():
     headers={
@@ -309,7 +309,6 @@ def logout():
     with requests.Session() as s:
         r = s.post('https://www.instagram.com/accounts/logout/ajax/', data=body, headers=headers)
         print(r.status_code)
-        #print(r.text)
         print('\n\nLogouted')
         
         
@@ -330,7 +329,7 @@ def runpost():
         mkfiles = glob.glob("album/*.jpg")#Collecting photos.
         try:
             numb=random.randint(0,(len(mkfiles)-1))
-            #print(numb)
+            
         
         except: print(bool(mkfiles))
         if bool(mkfiles):
