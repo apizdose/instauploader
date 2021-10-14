@@ -53,7 +53,7 @@ frfrom=int(frfrom)
 frto=int(frto)
 
 spam = False
-XInstagramAJAX = csrftoken = ds_user_id = sessionid = ig_did = mid = ig_nrcb = shbid = shbts = rur = X-IG-WWW-Claim = False
+XInstagramAJAX = csrftoken = ds_user_id = sessionid = ig_did = mid = ig_nrcb = shbid = shbts = rur = XIGWWWClaim = False
 XIGAppID = input('Paste XIGAppID or press enter to default: ') or "1217981644879628"
 print('IGAppid for your version is: '+XIGAppID)
 
@@ -115,7 +115,7 @@ def tspose(filename):
     
 #Open session
 def sessionData():
-    global X-IG-WWW-Claim
+    global XIGWWWClaim
     #link = 'https://www.instagram.com/accounts/login/'
     link = 'https://www.instagram.com/'
     login_url = 'https://www.instagram.com/accounts/login/ajax/'
@@ -147,11 +147,11 @@ def sessionData():
             "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
             "X-Requested-With": "XMLHttpRequest",
             "Referer": "https://www.instagram.com/accounts/login/",
-            "X-IG-WWW-Claim":0,
+            "XIGWWWClaim":0,
             "x-csrftoken":csrf
         })
-        global X-IG-WWW-Claim
-        X-IG-WWW-Claim = r.headers['x-ig-set-www-claim']
+        global XIGWWWClaim
+        XIGWWWClaim = r.headers['x-ig-set-www-claim']
         
         if r.status_code==403 or r.status_code==429:
             global spam 
@@ -256,7 +256,7 @@ def photoload(imagefile):
         'Connection': 'keep-alive',
         'Content-Length': '525',
         'X-IG-App-ID': XIGAppID,
-        'X-IG-WWW-Claim': X-IG-WWW-Claim,
+        'X-IG-WWW-Claim': XIGWWWClaim,
         'X-Instagram-AJAX': XInstagramAJAX,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': '*/*',
@@ -307,7 +307,7 @@ def logout():
         'Content-Length': '525',
         
         'X-IG-App-ID': XIGAppID,
-        'X-IG-WWW-Claim': X-IG-WWW-Claim,
+        'X-IG-WWW-Claim': XIGWWWClaim,
         'sec-ch-ua-mobile': '?1',
         'X-Instagram-AJAX': XInstagramAJAX,
         'Content-Type': 'application/x-www-form-urlencoded',
