@@ -7,7 +7,7 @@ import re
 import requests
 from datetime import datetime, timedelta
 import os
-from PIL import Image
+#from PIL import Image
 import glob
 import shutil
 from os import path
@@ -83,6 +83,30 @@ def smilegen():
 
         smiletext = ''.join(smiles)
         return smiletext
+
+def jpeg_res(filename):
+   """"This function prints the resolution of the jpeg image file passed into it"""
+
+   # open image for reading in binary mode
+   with open(filename,'rb') as img_file:
+
+       # height of image (in 2 bytes) is at 164th position
+       img_file.seek(163)
+
+       # read the 2 bytes
+       a = img_file.read(2)
+
+       # calculate height
+       height = (a[0] << 8) + a[1]
+
+       # next 2 bytes is width
+       a = img_file.read(2)
+
+       # calculate width
+       width = (a[0] << 8) + a[1]
+    
+   print("The resolution of the image is",width,"x",height)
+   return width, height    
     
 #Open session
 def sessionData():
@@ -180,8 +204,9 @@ def photoload(imagefile):
         filelengh = os.path.getsize(imagefile)
         lengh=str(filelengh)
 
-        im = Image.open(imagefile)
-        (imwidth, imheight) = im.size
+        #im = Image.open(imagefile)
+        #(imwidth, imheight) = im.size
+        (imwidth, imheight) = jpeg_res(imagefile)
 
 
         mtime = int(datetime.now().timestamp())
