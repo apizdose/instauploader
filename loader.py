@@ -53,7 +53,7 @@ frfrom=int(frfrom)
 frto=int(frto)
 
 spam = False
-XInstagramAJAX = csrftoken = ds_user_id = sessionid = ig_did = mid = ig_nrcb = shbid = shbts = rur = False
+XInstagramAJAX = csrftoken = ds_user_id = sessionid = ig_did = mid = ig_nrcb = shbid = shbts = rur = X-IG-WWW-Claim = False
 XIGAppID = input('Paste XIGAppID or press enter to default: ') or "1217981644879628"
 print('IGAppid for your version is: '+XIGAppID)
 
@@ -115,7 +115,7 @@ def tspose(filename):
     
 #Open session
 def sessionData():
-
+    global X-IG-WWW-Claim
     #link = 'https://www.instagram.com/accounts/login/'
     link = 'https://www.instagram.com/'
     login_url = 'https://www.instagram.com/accounts/login/ajax/'
@@ -132,7 +132,7 @@ def sessionData():
 #Cookie and headers req.
     with requests.Session() as s:
         r = s.get(link, headers={
-            "User-Agent": "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Mobile Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
             "X-Requested-With": "XMLHttpRequest",
             "Referer": "https://www.instagram.com/accounts/login/"})
         csrf = re.findall(r"csrf_token\":\"(.*?)\"",r.text)[0]
@@ -144,12 +144,14 @@ def sessionData():
 
 
         r = s.post(login_url,data=payload,headers={
-            "User-Agent": "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Mobile Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
             "X-Requested-With": "XMLHttpRequest",
             "Referer": "https://www.instagram.com/accounts/login/",
+            "X-IG-WWW-Claim":0,
             "x-csrftoken":csrf
         })
-        
+        global X-IG-WWW-Claim
+        X-IG-WWW-Claim = r.headers['x-ig-set-www-claim']
         
         if r.status_code==403 or r.status_code==429:
             global spam 
@@ -167,20 +169,19 @@ def sessionData():
             for i in res:globals()[i[0]] = i[1]
             print(r.status_code)
             print('\n\nConnected.')
+            
             getcoo()
+            
 
 def getcoo():
     headers={
         'Host': 'www.instagram.com',
         'Connection': 'keep-alive',
-        'sec-ch-ua': '"Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"',
-        'sec-ch-ua-mobile': '?1',
         'Content-Type': 'application/x-www-form-urlencoded',
         'Upgrade-Insecure-Requests': '1',
         'Accept': '*/*',
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Mobile Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1',
         'X-ASBD-ID': '198387',
-        'sec-ch-ua-platform': '"Android"',
         'Origin': 'https://www.instagram.com',
         'Sec-Fetch-Site': 'same-site',
         'Sec-Fetch-Mode': 'navigate',
@@ -225,17 +226,14 @@ def photoload(imagefile):
                             'X-Entity-Type': 'image/jpeg',
                             'X-IG-App-ID': XIGAppID,
                             'X-Entity-Name': f'fb_uploader_{microtime}',
-                            'Offset': '0',
-                            'sec-ch-ua-mobile': '?1',
+                            'Offset': '0',                            
                             'X-Instagram-AJAX': XInstagramAJAX,
                             'Content-Type': 'image/jpeg',
                             'Accept': '*/*',
                             'X-Instagram-Rupload-Params': f'{{"media_type":1,"upload_id":{microtime},"upload_media_height":{imheight},"upload_media_width":{imwidth}}}',
                             'X-ASBD-ID': '198387',
                             'X-Entity-Length': lengh,
-                            'User-Agent': 'Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Mobile Safari/537.36',
-                            'sec-ch-ua': '"Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"',
-                            'sec-ch-ua-platform': '"Android"',
+                            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1',
                             'Origin': 'https://www.instagram.com',
                             'Sec-Fetch-Site': 'same-site',
                             'Sec-Fetch-Mode': 'cors',
@@ -257,17 +255,14 @@ def photoload(imagefile):
         'Host': 'i.instagram.com',
         'Connection': 'keep-alive',
         'Content-Length': '525',
-        'sec-ch-ua': '"Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"',
         'X-IG-App-ID': XIGAppID,
-        'X-IG-WWW-Claim': 'hmac.AR1DI1g2Zh_2iUcb41tVL8yS6rqCJFOBYVA0p7idEuUHM7NA',
-        'sec-ch-ua-mobile': '?1',
+        'X-IG-WWW-Claim': X-IG-WWW-Claim,
         'X-Instagram-AJAX': XInstagramAJAX,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': '*/*',
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Mobile Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1',
         'X-ASBD-ID': '198387',
         'X-CSRFToken': csrftoken,
-        'sec-ch-ua-platform': '"Android"',
         'Origin': 'https://www.instagram.com',
         'Sec-Fetch-Site': 'same-site',
         'Sec-Fetch-Mode': 'cors',
@@ -310,17 +305,16 @@ def logout():
         'Host': 'i.instagram.com',
         'Connection': 'keep-alive',
         'Content-Length': '525',
-        'sec-ch-ua': '"Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"',
+        
         'X-IG-App-ID': XIGAppID,
-        'X-IG-WWW-Claim': 'hmac.AR1DI1g2Zh_2iUcb41tVL8yS6rqCJFOBYVA0p7idEuUHM7NA',
+        'X-IG-WWW-Claim': X-IG-WWW-Claim,
         'sec-ch-ua-mobile': '?1',
         'X-Instagram-AJAX': XInstagramAJAX,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': '*/*',
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Mobile Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1',
         'X-ASBD-ID': '198387',
-        'X-CSRFToken': csrftoken,
-        'sec-ch-ua-platform': '"Android"',
+        'X-CSRFToken': csrftoken,        
         'Origin': 'https://www.instagram.com',
         'Sec-Fetch-Site': 'same-site',
         'Sec-Fetch-Mode': 'cors',
