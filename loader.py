@@ -7,7 +7,7 @@ import re
 import requests
 from datetime import datetime, timedelta
 import os
-#from PIL import Image
+from PIL import Image
 import glob
 import shutil
 from os import path
@@ -204,9 +204,9 @@ def photoload(imagefile):
         filelengh = os.path.getsize(imagefile)
         lengh=str(filelengh)
 
-        #im = Image.open(imagefile)
-        #(imwidth, imheight) = im.size
-        (imwidth, imheight) = jpeg_res(imagefile)
+        im = Image.open(imagefile)
+        (imwidth, imheight) = im.size
+        #(imwidth, imheight) = jpeg_res(imagefile)
 
 
         mtime = int(datetime.now().timestamp())
