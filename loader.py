@@ -147,7 +147,7 @@ def sessionData():
             "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
             "X-Requested-With": "XMLHttpRequest",
             "Referer": "https://www.instagram.com/accounts/login/",
-            "XIGWWWClaim":0,
+            "X-IG-WWW-Claim":0,
             "x-csrftoken":csrf
         })
         global XIGWWWClaim
@@ -307,8 +307,7 @@ def logout():
         'Content-Length': '525',
         
         'X-IG-App-ID': XIGAppID,
-        'X-IG-WWW-Claim': XIGWWWClaim,
-        'sec-ch-ua-mobile': '?1',
+        'X-IG-WWW-Claim': XIGWWWClaim,      
         'X-Instagram-AJAX': XInstagramAJAX,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': '*/*',
