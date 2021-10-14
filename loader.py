@@ -107,6 +107,11 @@ def jpeg_res(filename):
     
    print("The resolution of the image is",width,"x",height)
    return width, height    
+ 
+def tspose(filename):
+    im = Image.open(filename)
+    im = im.transpose(Image.FLIP_LEFT_RIGHT)
+    im.save(filename)
     
 #Open session
 def sessionData():
@@ -359,6 +364,7 @@ def runpost():
         except: print(bool(mkfiles))
         if bool(mkfiles):
             file = mkfiles[int(numb)]
+            tspose(file)
             sessionData()
             print('Logged in >>> '+loginform+' <<< Waiting 5-10min to post.')
             time.sleep(random.randint(300,600))
