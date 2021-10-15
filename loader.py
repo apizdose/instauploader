@@ -86,7 +86,7 @@ def smilegen():
 
 def locgen():
     locations={}
-    with open('lacations.txt','r') as file:
+    with open('locations.txt','r') as file:
         locs = file.read().splitlines()
         
         for i in locs:
