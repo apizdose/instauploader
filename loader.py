@@ -84,6 +84,22 @@ def smilegen():
         smiletext = ''.join(smiles)
         return smiletext
 
+def locgen():
+    locations={}
+    with open('lacations.txt','r') as file:
+        locs = file.read().splitlines()
+        
+        for i in locs:
+            slic=i.split(":")
+            locations[slic[0]]=slic[1]
+            
+            
+    locbase = [(k, v) for k, v in locations.items()]
+
+    loc=locbase[random.randint(0,len(locbase))]
+    print('Use location: '+loc[0])
+    return loc[1]    
+    
 def jpeg_res(filename):
    """"This function prints the resolution of the jpeg image file passed into it"""
 
@@ -285,7 +301,7 @@ def photoload(imagefile):
         'upcoming_event':'' ,
         'upload_id': microtime,
         'geotag_enabled': 'true',
-        'location': '{"lat":48.527823421176,"lng":8.0762835113124,"facebook_places_id":108109851420734}',
+        'location': f'{{"facebook_places_id":{locgen()}}}',
         'usertags':'' ,
         'custom_accessibility_caption':'', 
         'disable_comments': '0',
