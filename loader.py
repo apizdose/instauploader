@@ -78,11 +78,13 @@ def taggen():
 def smilegen():
     with open('smiles.txt','r', encoding='utf-8') as file:
         smiles = file.read().splitlines()
-
+        texts=['See my bio','Look at bio','Link in bio', 'Visit my bio', 'More in bio', 'Click my bio', 'Visit my page', 'Find me in bio', 'Looking for fun', 'Let\'s get to know better.', 'Have a nice day!']
         random.shuffle(smiles)
-
+        rantext=texts[random.randint(0,(len(texts)-1))]
         smiletext = ''.join(smiles)
-        return smiletext
+        captiontext=f'{rantext} {smiletext}'
+        return captiontext
+
 
 def locgen():
     locations={}
