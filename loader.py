@@ -217,7 +217,7 @@ def getcoo():
         r = s.get('https://www.instagram.com/accounts/onetap/?next=%2F', headers=headers)
         print('Cookies catched.')
         print(r.status_code)
-        print('GET COOK')
+        #print('GET COOK')
         cookies=dict(r.cookies)
         res = [(k, v) for k, v in cookies.items()]
         for i in res:globals()[i[0]] = i[1]
