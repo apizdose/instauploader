@@ -374,13 +374,19 @@ def runpost():
         if bool(mkfiles):
             file = mkfiles[int(numb)]
             tspose(file)
-            sessionData()
-            print('Logged in >>> '+loginform+' <<< Waiting 5-10min to post.')
-            time.sleep(random.randint(300,600))
-            photoload(file)
-            print('Post from '+loginform+' with '+file+' created.\n\nWaiting to logoff 5-10min.')
-            time.sleep(random.randint(300,600))
-            logout()
+            try:
+                sessionData()
+                print('Logged in >>> '+loginform+' <<< Waiting 5-10min to post.')
+                time.sleep(random.randint(300,600))
+                photoload(file)
+                print('Post from '+loginform+' with '+file+' created.\n\nWaiting to logoff 5-10min.')
+                time.sleep(random.randint(300,600))
+                logout()
+            except Exception as ex:
+                print('ERROR!!! ERROR!!! ERROR!!! ERROR!!! ERROR!!!')
+                print(ex)
+                continue
+                
             destination_path = "Trash"
             new_location = shutil.move(file, destination_path)
             #print(bool(mkfiles))
