@@ -178,7 +178,7 @@ def sessionData():
             print('\n\nConnected.')
             
             getcoo()
-            time.sleep(random.randint(0,2))
+            time.sleep(random.randint(0,3))
             actions()
             
 
@@ -491,9 +491,6 @@ def runpost():
             file = mkfiles[int(numb)]
             tspose(file)
             try:
-                actions()
-                print('Doing activity 1-2min')
-                time.sleep(random.randint(50,110))
                 photoload(file)               
                 print('Post from '+loginform+' with '+file+' created.')
                 print('Doing activity 30-60min')
