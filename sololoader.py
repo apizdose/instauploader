@@ -36,8 +36,8 @@ passwordform=input('Password:  ') or ""
 ####Here your logins and passwords.#####
 ########################################
 
-frfrom=input('Frequency from (seconds):  ') or "25000"
-frto=input('Frequency to (seconds):  ') or "35000"
+frfrom=input('Frequency from (seconds):  ') or "21000"
+frto=input('Frequency to (seconds):  ') or "31000"
 frfrom=int(frfrom)
 frto=int(frto)
 
@@ -178,6 +178,8 @@ def sessionData():
             print('\n\nConnected.')
             
             getcoo()
+            time.sleep(random.randint(0,2))
+            actions()
             
 
 def getcoo():
@@ -211,7 +213,160 @@ def getcoo():
         res = [(k, v) for k, v in cookies.items()]
         for i in res:globals()[i[0]] = i[1]
                 
+def actions():
 
+###REELSTRAY
+
+    headers={
+        'Host': 'i.instagram.com',
+        'Connection': 'keep-alive',
+        'Accept': '*/*',
+        'X-IG-WWW-Claim':XIGWWWClaim,
+        'X-ASBD-ID': '198387',
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+        'X-IG-App-ID': XIGAppID,
+        'Origin': 'https://www.instagram.com',
+        'Sec-Fetch-Site': 'same-site',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Dest': 'empty',
+        'Referer': 'https://www.instagram.com/',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'en-US,en;q=0.9,ru;q=0.8',
+        'Cookie': f'mid={mid}; ig_did={ig_did}; csrftoken={csrftoken}; ds_user_id={ds_user_id}; sessionid={sessionid}; rur={rur}',
+            }
+
+   
+
+    with requests.Session() as s:
+        
+        r = s.get('https://i.instagram.com/api/v1/feed/reels_tray/', headers=headers)
+        print('Cookies catched.')
+        print('Reels_tray code: '+str(r.status_code))
+        
+        cookies=dict(r.cookies)
+        res = [(k, v) for k, v in cookies.items()]
+        for i in res:globals()[i[0]] = i[1]
+
+        time.sleep(random.randint(1,5))
+
+
+       
+
+    ####TIMELINE
+
+        headers={
+            'Host': 'i.instagram.com',
+            'Connection': 'keep-alive',
+            'Content-Length': '153',
+            'X-IG-WWW-Claim': XIGWWWClaim,
+            'X-Instagram-AJAX': XInstagramAJAX,
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': '*/*',
+            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+            'X-ASBD-ID': '198387',
+            'X-CSRFToken': csrftoken,
+            'X-IG-App-ID': XIGAppID,
+            'Origin': 'https://www.instagram.com',
+            'Sec-Fetch-Site': 'same-site',
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Dest': 'empty',
+            'Referer': 'https://www.instagram.com/',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Accept-Language': 'en-US,en;q=0.9,ru;q=0.8',
+            'Cookie': f'mid={mid}; ig_did={ig_did}; csrftoken={csrftoken}; ds_user_id={ds_user_id}; sessionid={sessionid}; rur={rur}',
+                }
+
+        body={
+
+            'device_id': ig_did,
+            'is_async_ads_rti': '0',
+            'is_async_ads_double_request': '0',
+            'rti_delivery_backend': '0',
+            'is_async_ads_in_headload_enabled': '0',
+
+        }
+
+        r = s.post('https://i.instagram.com/api/v1/feed/timeline/', data=body, headers=headers)
+        print('timeline catched.')
+        cookies=dict(r.cookies)
+        print(cookies)
+        res = [(k, v) for k, v in cookies.items()]
+        for i in res:globals()[i[0]] = i[1]
+
+
+        print('timeline code: '+str(r.status_code))
+        time.sleep(random.randint(1,5))
+
+
+    ###########BADGE
+
+
+        headers={
+            'Host': 'i.instagram.com',
+            'Connection': 'keep-alive',
+            'Content-Length': '67',
+            'X-IG-WWW-Claim': XIGWWWClaim,
+            'X-Instagram-AJAX': XInstagramAJAX,
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': '*/*',
+            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+            'X-ASBD-ID': '198387',
+            'X-CSRFToken': csrftoken,
+            'X-IG-App-ID': XIGAppID,
+            'Origin': 'https://www.instagram.com',
+            'Sec-Fetch-Site': 'same-site',
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Dest': 'empty',
+            'Referer': 'https://www.instagram.com/',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Accept-Language': 'en-US,en;q=0.9,ru;q=0.8',
+            'Cookie': f'mid={mid}; ig_did={ig_did}; csrftoken={csrftoken}; ds_user_id={ds_user_id}; sessionid={sessionid}; rur={rur}',
+                }
+
+        body={
+            'user_ids': ds_user_id,
+            'device_id': ig_did,
+
+        }
+
+        r = s.post('https://i.instagram.com/api/v1/notifications/badge/', data=body, headers=headers)
+        cookies=dict(r.cookies)
+        print(cookies)
+        res = [(k, v) for k, v in cookies.items()]
+        for i in res:globals()[i[0]] = i[1]
+
+
+        print('badge catched.')
+        print('badge code: '+str(r.status_code))
+        time.sleep(random.randint(1,5))
+
+    ########MAINFEST
+
+        headers={
+                'Host': 'www.instagram.com',
+                'Connection': 'keep-alive',
+                'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+                'Accept': '*/*',
+                'Sec-Fetch-Site': 'same-site',
+                'Sec-Fetch-Mode': 'cors',
+                'Sec-Fetch-Dest': 'manifest',
+                'Referer': f'https://www.instagram.com/{loginform}/',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Accept-Language': 'en-US,en;q=0.9,ru;q=0.8',
+                
+                    }
+
+
+
+        r = s.get('https://www.instagram.com/data/manifest.json', headers=headers)
+
+        print('MAINFEST catched.')
+        print('MAINFEST code: '+str(r.status_code))
+        print(r.content)
+        time.sleep(random.randint(1,5))
+
+
+                
 def photoload(imagefile):
     with requests.Session() as s:
         filelengh = os.path.getsize(imagefile)
@@ -255,6 +410,11 @@ def photoload(imagefile):
         print('\n\n'+str(r.status_code))
         print(r.text)
         print('\nWaiting a few seconds...')
+        cookies=dict(r.cookies)
+        print(cookies)
+        res = [(k, v) for k, v in cookies.items()]
+        for i in res:globals()[i[0]] = i[1]
+
         time.sleep(random.randint(5,25))
         
         
@@ -305,6 +465,9 @@ def photoload(imagefile):
         print('\n\n'+str(r.status_code))
         print(sbody)
         cookies=dict(r.cookies)
+        print(cookies)
+        res = [(k, v) for k, v in cookies.items()]
+        for i in res:globals()[i[0]] = i[1]
         
 
 
@@ -328,9 +491,14 @@ def runpost():
             file = mkfiles[int(numb)]
             tspose(file)
             try:
-                
-                photoload(file)
+                actions()
+                print('Doing activity 1-2min')
+                time.sleep(random.randint(50,110))
+                photoload(file)               
                 print('Post from '+loginform+' with '+file+' created.')
+                print('Doing activity 30-60min')
+                time.sleep(random.randint(1800,3700))
+                actions()
                 
                 
             except Exception as ex:
